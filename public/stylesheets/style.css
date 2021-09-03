@@ -1,0 +1,527 @@
+*{
+  margin:0;
+  padding:0;
+  text-decoration: none;
+  list-style: none;
+}
+table, td, th{
+  border-collapse: collapse;
+}
+/* header */
+/* .header_area{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1.5px solid #dcdcdc;
+  background-color: #fff;
+  padding: 15px 0 15px 20px;
+}
+.header_area img{
+  height: 40px;
+  align-items: center;
+}
+.header_area ul{
+  font-weight: bolder;
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  align-items: center;
+  list-style: none;
+}
+.header_area ul a{
+  text-decoration: none;
+  color: rgb(54, 54, 54);
+}
+.header_area ul a:hover{
+  color: #24c0eb;
+} */
+.navbar{
+  font-weight: bolder;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 8px 12px;
+  border-bottom: 1px solid #eeee;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.navbar_logo img{
+  height: 40px;
+}
+.navbar a{
+  text-decoration: none;
+  color: #000;
+}
+.navbar_menu{
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+}
+.navbar_menu li{
+  padding: 8px 12px;
+}
+.navbar_menu li:hover{
+  background-color: #68deff;
+  border-radius: 4px;
+}
+.navbar__toogleBtn{
+  display: none;
+  position: absolute;
+  right: 32px;
+  font-size: 24px;
+  color: #24c0eb;
+}
+@media screen and (max-width: 768px) {
+  .navbar{
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 24px;
+  }
+  .navbar_menu{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .navbar_menu li{
+    width: 100%;
+    text-align: center;
+  }
+  .navbar__toogleBtn{
+    display: block;
+  }
+
+  .navbar_menu.active{
+    display: flex;
+  }
+}
+
+
+/* main */
+.body_cont{
+  width: 100%;
+  background: #eeee;
+}
+.index_img{
+  padding: 5px;
+  display: flex;
+  width: 1500px;
+  justify-content: center;
+  height: 500px;
+  margin: 0 auto;
+  border-radius: 15px 15px;
+}
+#chart{
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 700px;
+}
+.mySlides {
+  display:none;
+}
+.w3-section{
+  padding: 10px;
+}
+.w3-section img{
+  border-radius: 10px 10px;
+}
+
+/* trade */
+.allbox{
+  margin: 0 auto;
+  width: 1300px;
+}
+.tab1{
+  display: inline-block;
+  display: inline-block;
+    margin: 20px 0 50px;
+  padding: 30px;
+  background-color: #fff;
+}
+.tab2{
+  position: sticky;
+  top: 72px;
+  float: right;
+  padding: 30px;
+  margin-top: 20px;
+  background-color: #fff;
+}
+.trade_body{
+  background: #eeeeee;
+  min-height: 100vh;
+}
+.red{
+  color : red;
+}
+.blue{
+  color : blue;
+}
+.black{
+  color : black;
+}
+.total_box{
+  margin-top: 10px;
+  border : 2px solid #dcdcdc;
+  padding: 10px;
+  background: #fff;
+  width: 685px;
+}
+.box_one{
+  padding: 10px;
+}
+.viewchart{
+  font-size: 40px;
+  font-weight: 550;
+}
+.showcoin{
+  display: flex;
+  font-size: 30px;
+}
+.priceone{
+  display: flex;
+  justify-content: space-around;
+  font-weight: bolder;
+}
+.krw{
+  font-size: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.before{
+  font-size: 20px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  margin-right: 10px;
+}
+.change_d{
+  font-size: 20px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+.box_two{
+  padding: 10px;
+  display: flex;
+  justify-content: left;
+  font-size: 15px;
+  font-weight: 550;
+}
+.first_box{
+  margin-right: 30px;
+}
+#coinmarketcap-widget-marquee{
+  background: #fff;
+}
+.buybox{
+  margin:0 auto;
+  margin-top: 70px;
+  width: 685px;
+  display: flex;
+  justify-content: space-between;
+}
+#buy, #sell{
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  width: 290px;
+  height: 340px;
+  text-align: right;
+  font-weight: bolder;
+  box-shadow: 2px 2px 6px 1px rgb(0 0 0 / 20%);
+}
+#buy h3, #sell h3{
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #dc0000;
+  width: 84%;
+  color: #dc0000;
+  margin: 0 auto;
+}
+#sell h3{
+  border-bottom: 2px solid #366afb;
+  color: #366afb;
+}
+#buy dl, #sell dl{
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+}
+#buy dl dt, #sell dl dt{
+  width: 90px;
+  padding: 10px 0;
+  float: left;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.7;
+  height: 21px;
+}
+#buy dl dd, #sell dl dd{
+  padding: 10px 0;
+  width: 190px;
+  float: right;
+}
+#leftdiv{
+  text-align: left;
+}
+.coin_value{
+  border: none;
+  background: transparent;
+  text-align: right;
+  font-size: 16px;
+  font-weight: 700;
+}
+.centerdiv{
+  width: 100%!important;
+  text-align: right;
+}
+.per{
+  padding: 4px;
+  font-weight: bold;
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 3px 3px;
+  width: 45px;
+  margin-top: 2px;
+}
+#per:hover{
+  background: rgb(255, 183, 183);
+  color: #fff;
+}
+
+.fixed_bottom{
+  position: absolute;
+  position: absolute;
+  bottom: 15px;
+  width: 87%;
+  font-size: 13px;
+  font-weight: 500;
+}
+.fixed_bottom p:first-child{
+  padding-right: 8px;
+  display: inline-block;
+}
+.endbtn{
+  width: 100%;
+  padding: 8px;
+  font-weight: bolder;
+  font-size: 15px;
+  border: 1px solid #ff4e4e;
+  background-color: #ffffff;
+  border-radius: 5px 5px;
+  letter-spacing: 2px;
+  margin: 10px 0;
+}
+#sell .endbtn{
+  border: 1px solid #4752ec;
+}
+.endbtn:hover{
+  background: rgb(255, 183, 183);
+  border: 1px solid rgb(230, 230, 230);
+  color: #fff;
+  transition: all .4s ease-out;
+}
+#sell .endbtn:hover{
+  background: rgb(183, 194, 255);
+  border: 1px solid rgb(230, 230, 230);
+  transition: all .4s ease-out;
+}
+
+/* 시세표 */
+#table_ticker{
+  width: 100%;
+  border: none;
+  border-collapse: collapse;
+}
+#table_ticker thead tr{
+  border-top: 1px solid rgb(206, 206, 206);
+}
+#table_ticker thead tr th{
+  height: 30px;
+  background-color: #f9fafc;
+  color: #666;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: Dotum,Noto Sans KR,sans-serif;
+  border: none;
+}
+#table_ticker tbody tr{
+  height: 45px;
+}
+#table_ticker tbody tr td{
+  padding : 10px;
+  padding: 10px 20px 10px 20px;
+  border-left: none;
+  border-right: none;
+}
+#table_ticker tbody tr .en_name{
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+#table_ticker tbody tr em{
+  font-size: 11px;
+  font-weight: 500;
+  color: #666;
+  font-style: normal;
+}
+
+
+/*  */
+
+.main_top{
+  padding: 5px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 824px;
+  background-color:#ffffff ;
+  padding-top: 120px;
+  letter-spacing: 1px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.main_text{
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: 'Eulyoo1945-SemiBold';
+  font-size: 27px;
+}
+@font-face {
+  font-family: 'Eulyoo1945-SemiBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/Eulyoo1945-SemiBold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.main_text h3{
+  margin-top: 50px;
+  line-height: 1.5;
+}
+.main_img{
+  width: 1000px;
+}
+.main_top img{
+flex: 1;
+width: 30%;
+}
+.text{
+  padding: 5px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 824px;
+  margin: 0 auto;
+  background-color:#ffffff ;
+  padding-top: 120px;
+  letter-spacing: 1px;
+
+
+  
+}
+.to_start button{
+  height: 70px;
+  padding: 5px;
+  width: 150px;
+    justify-content: center;
+  border-radius: 30px;
+  background-color : #24c0eb; 
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+.to_start :hover{
+  background-color:  rgb(56, 97, 251);
+}
+.to_start{
+  padding-top: 120px; 
+  text-align: center;
+} 
+.to_start button a{
+  text-decoration: none;
+  color: #ffffff;
+  
+}
+
+
+
+.text_1 img{
+  width: 100%;
+  margin-bottom: 50px;
+}
+.text_1 h1 {
+  text-align: center;
+  font-size: 37px;
+  font-family: 'Eulyoo1945-SemiBold';
+  line-height: 1.5;
+}
+
+.text2{
+  padding: 5px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 824px;
+    margin: 0 auto;
+    border-radius: 15px 15px;
+    background-color: #ffffff;
+    padding-top: 120px;
+    letter-spacing: 1px;
+}
+.text_1_1{
+  text-align: center;
+    font-size: 2em;
+    letter-spacing: 2px;
+}
+.text_1_1 h2 span{
+  color: #000;
+}
+.text_1_1 h1{
+  font-size: 100px;
+}
+.feature-box {
+  padding: 0 10px;
+  align-items: flex-start;
+  width: 80%;
+}
+.container {
+  width: 87rem;
+  margin: 72px auto;
+}
+.feature-box dl {
+  flex: 1;
+  padding: 0 30px;
+  text-align: center;
+}
+.feature-box dt {
+  text-align: center;
+}
+dt {
+  font-weight: 500;
+}
+dl, ol, ul {
+  list-style: none;
+}
+.flex {
+  display: flex;
+}
+
+.text_1_1 h1 {
+  margin-bottom: 40px;
+}
+
+
+.text_1_1 dt h3 {
+  margin-top: 20px;
+}
+.text_1_1 dt h5 {
+  margin-top: 20px;
+  font-size: 30px;
+}
+
+.text_1_1 dl dd {
+  margin-top: 25px;
+  font-size: 25px;
+  text-align: left;
+}

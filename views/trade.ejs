@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/style.css"/>
+        <link rel="stylesheet" href="/stylesheets/trade.css"/>
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+        <title>Trade</title>
+
+        <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script>
+            $(function(){
+                $('.viewchart').text('');
+                $('.viewchart').text('Bitcoin');
+                $('#coin_name').val('Bitcoin');
+                $('#coin_name2').val('Bitcoin');
+                $('#user_krw').val(0);
+                coinCount();
+            })
+            function percent(per){
+                $.ajax({
+                    url: "/trade/number",
+                    type: "POST",
+                    dataType: "json",
+                    data : {"percent":per},
+                })
+                .done((result)=>{
+                    $('#user_krw').val(result['result']);
+                })
+                .fail(function(){
+                    console.log("ajax 퍼센트 에러");
+                });
+            }
+            function coinPercent(per){
+                const coin = $('.viewchart').text();
+                $.ajax({
+                    url: "/trade/coin",
+                    type: "POST",
+                    dataType: "json",
+                    data : {"percent":per, "coin":coin}
+                })
+                .done((result)=>{
+                    $('#user_coin').val(result['result']);
+                })
+                .fail(function(){
+                    console.log("ajax 퍼센트 에러");
+                });
+            }
+            function coinCount(){
+                const coin = $('.viewchart').text();
+                console.log('................',coin);
+                $.ajax({
+                    url: "/trade/wallet",
+                    type: "POST",
+                    dataType: "json",
+                    data: {"coin":coin},
+                })
+                .done((result)=>{
+                    $('#coinCounts').val(result['result']);
+                    $('.coinCounts').html(result['result'].toLocaleString('ko-KR')+' 개');
+                    console.log('tlqltqkqtlqtk', result['result']);
+                })
+                .fail(function(){
+                    console.log("coinCount 함수 에러")
+                })
+            }
+        </script>
+    </head>
+
+    <body class="trade_body">
+        <%- include('title') %>
+        <div class="allbox">
+            <div class="tab1">
+                <div class="total_box">
+                    <div class="box_one">
+                        <p class="viewchart" onchange="coinCount()"></p>
+                        <div class="showcoin">
+                            <div class="priceone">
+                                <div class="coin_value" style="font-size: 30px; padding-right: 10px;"></div>
+                                <div class="krw"> KRW</div>
+                            </div>
+                            <div class="before">
+                                <div class="plu"></div>
+                                <div class="coin_before"></div>
+                            </div>
+                            <div class="change_d">
+                                <div class="arrow"></div>
+                                <div class="change_price"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="box_two">
+                        <div class="first_box">
+                            <div>고가</div>
+                            <hr>
+                            <div class="highprice red"></div>
+                        </div>
+                        <div class="second_box">
+                            <div>저가</div>
+                            <hr>
+                            <div class="lowprice blue"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="chart_selector">
+                    <select id="chart_en_name_select" name="chart_en_name">
+                        <option id="KRW-BTC" value="KRW-BTC">Bitcoin</option>
+                        <option id="KRW-ETH" value="KRW-ETH">Ethereum</option>
+                        <option id="KRW-LTC" value="KRW-LTC">Litecoin</option>
+                        <option id="KRW-XRP" value="KRW-XRP">Ripple</option>
+                        <option id="KRW-DOGE" value="KRW-DOGE">Dogecoin</option>
+                        <option id="KRW-BCH" value="KRW-BCH">Timocoin</option>
+                    </select>
+        
+                    <select id="chart_time_select" name="chart_time">
+                        <option value="minutes/1">1 minute</option>
+                        <option value="minutes/3">3 minute</option>
+                        <option value="minutes/5">5 minute</option>
+                        <option value="minutes/10">10 minute</option>
+                        <option value="minutes/15">15 minute</option>
+                        <option value="minutes/30">30 minute</option>
+                        <option value="minutes/60">60 minute</option>
+                        <option value="minutes/240">240 minute</option>
+                        <option value="days">1 day</option>
+                        <option value="weeks">1 week</option>
+                        <option value="months">1 month</option>
+                    </select>
+        
+                    <button id="chart_selector_btn">search</button>
+                </div>
+                
+                <div id="chart">
+                </div>
+        
+                <div class="buybox">
+                    <form id="buy" action="/trade/buy" method="POST">
+                        <h3>매수</h3>
+                        <div>
+                            <dl>
+                                <dt id="leftdiv">주문가능</dt>
+                                <dd>
+                                    <% if(logined == true){ %>
+                                        <% if(data != ""){ %>
+                                            <%= data[0].balance.toLocaleString('ko-KR') %>
+                                        <% }else { %>
+                                            0
+                                        <% } %>
+                                        KRW
+                                    <% }else{ %>
+                                        0 KRW
+                                    <% } %>
+                                    
+                                </dd>
+                                <dt id="leftdiv">주문가격</dt>
+                                <dd><input class="coin_value" name="coin_value" style="width: 100%;"/></dd>
+                                <dt id="leftdiv">주문금액</dt>
+                                <dd><input id="user_krw" name="number" type="number" style="width: 70%; padding: 4px; border: 1px solid #999;" value="0" required> KRW<br></dd>
+                                <% if(logined == false){ %>
+                                    <dd class="centerdiv"><a href="/login">
+                                        <input class="endbtn" value="로그인 후 이용하세요" style="text-align: center; width: 93%;">
+                                    </a></dd>
+                                <% }else{ %>
+                                    <dd class="centerdiv">
+                                        <input class="per" onclick="percent(25)" type="button" value="25%">
+                                        <input class="per" onclick="percent(50)" type="button" value="50%">
+                                        <input class="per" onclick="percent(75)" type="button" value="75%">
+                                        <input class="per" onclick="percent(100)" type="button" value="100%">
+                                    </dd>
+                                <% } %> 
+                                <dt></dt>
+                                <dd></dd>
+                            </dl>
+                        </div>
+                        <div class="fixed_bottom">
+                            <p>수수료 : 5%</p>
+                            <% if(logined == true){ %>
+                            <p style="display: inline-block;">최소주문금액 : 1000KRW</p>
+                            <% } %>
+                            <input type="hidden" name="coin_name" id="coin_name">
+                            <br/>
+                            <% if(logined == false){ %>
+                                <a href="/login">
+                                    <input class="endbtn" value="로그인 후 이용하세요" style="text-align: center; width: 93%;">
+                                </a>
+                            <% }else{ %>
+                                <input class="endbtn" type="submit" value="매수">
+                            <% } %> 
+                        </div>
+                    </form>
+                    <form id="sell" action="/trade/sell" method="POST">
+                        <h3>매도</h3>
+                        <dl>
+                            <dt id="leftdiv">보유 코인</dt>
+                            <dd>
+                                <% if(logined == true){ %>
+                                    <p class="coinCounts"></p>
+                                    <input id="coinCounts" name="coinCounts" type="hidden" value="0">
+                                <% }else{ %>
+                                    0 개
+                                <% } %>
+                                
+                            </dd>
+                            <dt id="leftdiv">매도가격</dt>
+                            <dd><input class="coin_value" name="coin_value" style="width:100%;"/></dd>
+                            <dt id="leftdiv">매도할 코인</dt>
+                            <dd><input id="user_coin" name="user_coin" type="text" style="width: 70%; padding: 4px; border: 1px solid #999;" value="0"> 개<br></dd>
+                            <% if(logined == false){ %>
+                                <dd class="centerdiv"><a href="/login">
+                                    <input class="endbtn" value="로그인 후 이용하세요" style="text-align: center; width: 93%;">
+                                </a></dd>
+                            <% }else{ %>
+                                <dd class="centerdiv">
+                                    <input class="per" onclick="coinPercent(25)" type="button" value="25%">
+                                    <input class="per" onclick="coinPercent(50)" type="button" value="50%">
+                                    <input class="per" onclick="coinPercent(75)" type="button" value="75%">
+                                    <input class="per" onclick="coinPercent(100)" type="button" value="100%">
+                                </dd>
+                            <% } %> 
+                        </dl>
+                        <div class="fixed_bottom">
+                            <p>수수료 : 5%</p>
+                            <input type="hidden" name="coin_name" id="coin_name2">
+                            <br>
+                            <% if(logined == false){ %>
+                                <a href="/login">
+                                    <input class="endbtn" value="로그인 후 이용하세요" style="text-align: center; width: 93%;">
+                                </a>
+                            <% }else{ %>
+                                <input class="endbtn" type="submit" value="매도">
+                            <% } %> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tab2">
+                <table border=1 id="table_ticker" class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>영문명</th>
+                            <th>현재가</th>
+                            <th>전일대비</th>
+                            <th>거래대금</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <div class="coinlist">
+                <table id="table_ticker" class="conintable">
+                    <thead>
+                        <tr>
+                            <td>영문명</td>
+                            <td>현재가</td>
+                            <td>전일대비</td>
+                            <td>거래대금</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div> -->
+        </div>
+
+        <div 
+            id="coinmarketcap-widget-marquee" 
+            coins="1,1027,52,2,74" 
+            currency="USD" 
+            theme="light" 
+            transparent="true" 
+            show-symbol-logo="true"
+        >
+        </div>
+    </body>
+
+    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/javascripts/trade.js"></script>
+</html>

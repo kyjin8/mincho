@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/style.css"/>
+        <link rel="stylesheet" href="/stylesheets/mytrade.css"/>
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+        <title>My Trade</title>
+        <%- include('title') %>
+    </head>
+
+    <body class="trade_body" _c_t_common="1">
+        <div class="main">
+            <div class="mytrade">
+                <div class="holdingCoin">
+                    <div class="amountTable upper">
+                        <table class="amountTableHead">
+                            <colgroup>
+                                <col width="140">
+                                <col width="140">
+                                <col width="140">
+                                <col width="140">
+                                <col width="140">
+                                <col width="140">
+                                <!-- <col width="100"> -->
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>보유코인</th>
+                                    <th>보유수량</th>
+                                    <th>매수평균가</th>
+                                    <th>매수금액</th>
+                                    <th>평가금액</th>
+                                    <th>평가손익(%)</th>
+                                    <!-- <th>&nbsp;</th> -->
+                                </tr>
+                            </thead>
+                        </table>
+                        <div style="position: relative; overflow: hidden; width: 100%; height: 340px;">
+                            <div style="position: absolute; inset: 0px; overflow: scroll; margin-right: -17px; margin-bottom: -17px;">
+                                <table class="amountTableBody">
+                                    <colgroup>
+                                        <col width="140">
+                                        <col width="140">
+                                        <col width="140">
+                                        <col width="140">
+                                        <col width="140">
+                                        <col width="140">
+                                        <!-- <col width="100"> -->
+                                    </colgroup>
+                                    <tbody>
+                                        <% if(wallet.length < 1) { %>
+                                        <tr class="amountTableRow" style="height: 540px; overflow: auto;">
+                                            <td class="amountTableCell amountTableCell--EmptyData" colspan="7">
+                                                보유 중인 코인이 없습니다.
+                                            </td>
+                                        </tr>
+                                        <% } else { %>
+                                            <% wallet.forEach((item, index) => { %>
+                                            <tr class="amountTableRow">
+                                                <td class="<%= index %>"><%= item.coin_name %></td>
+                                                <td class="<%= index %>_coinCount"><%= item.wallet_coin_count %></td>
+                                                <td class="<%= index %>_avg"><%= item.avg_buy_price.toFixed(0) %></td>
+                                                <td class="<%= index %>_buying"><%= (item.wallet_coin_count * item.avg_buy_price).toFixed(0) %></td>
+                                                <td class="<%= index %>_apiPrice"></td>
+                                                <td class="<%= index %>_apiPercent"></td>
+                                            </tr>
+                                            <% }) %>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="position: absolute; height: 6px; right: 2px; bottom: 2px; left: 2px; border-radius: 3px;">
+                                <div style="position: relative; display: block; height: 100%; cursor: pointer; border-radius: inherit; background-color: rgba(0, 0, 0, 0.2); width: 0px;">
+                                </div>
+                            </div>
+                            <div style="position: absolute; width: 6px; right: 2px; bottom: 2px; top: 2px; border-radius: 3px;">
+                                <div style="position: relative; display: block; width: 100%; cursor: pointer; border-radius: inherit; background-color: rgba(0, 0, 0, 0.2); height: 0px; transform: translateY(536px);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tradeHistory">
+                    <div class="amountTable">
+                        <table class="amountTableHead">
+                            <colgroup>
+                                <col width="160">
+                                <col width="80">
+                                <!-- <col width="48"> -->
+                                <col width="40">
+                                <col width="120">
+                                <col width="140">
+                                <col width="140">
+                                <col width="100">
+                                <col width="140">
+                                <!-- <col width="94"> -->
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th class="amountTableHeadTitle">체결시간</th>
+                                    <th class="amountTableHeadTitle">코인</th>
+                                    <!-- <th class="amountTableHeadTitle">마켓</th> -->
+                                    <th class="amountTableHeadTitle">종류</th>
+                                    <th class="amountTableHeadTitle">거래수량</th>
+                                    <th class="amountTableHeadTitle">거래단가</th>
+                                    <th class="amountTableHeadTitle">거래금액</th>
+                                    <th class="amountTableHeadTitle">수수료</th>
+                                    <th class="amountTableHeadTitle">정산금액</th>
+                                    <!-- <th class="amountTableHeadTitle">주문시간</th> -->
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="amountTableContent">
+                            <table class="amountTableBody">
+                                <colgroup>
+                                    <col width="160">
+                                    <col width="80">
+                                    <!-- <col width="48"> -->
+                                    <col width="40">
+                                    <col width="120">
+                                    <col width="140">
+                                    <col width="140">
+                                    <col width="100">
+                                    <col width="140">
+                                    <!-- <col width="94"> -->
+                                </colgroup>
+                                <tbody>
+                                    <% if(trade.length < 1) { %>
+                                    <tr class="amountTableRow" style="height: 540px; overflow: auto;">
+                                        <td class="amountTableCell amountTableCell--EmptyData" colspan="10">
+                                            거래 내역이 없습니다.
+                                        </td>
+                                    </tr>
+                                    <% } else { %>
+                                        <% trade.forEach((item) => { %>
+                                        <tr class="amountTableRow">
+                                            <td><%=  moment(item.date).format('YYYY.MM.DD HH:mm:ss') %></td>
+                                            <td><%= item.coin_name %></td>
+                                            <td><%= item.action %></td>
+                                            <td><%= item.trade_coin_count %></td>
+                                            <td><%= ((item.money - item.money * 0.05) / item.trade_coin_count).toFixed(0) %></td>
+                                            <td><%= item.money %></td>
+                                            <td><%= (item.money * 0.05).toFixed(0) %></td>
+                                            <td><%= (item.money - item.money * 0.05).toFixed(0) %></td>
+                                        </tr>
+                                        <% }) %>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mytrade_right1">
+                <div class="mytradeState">
+                    <div class="tradeAmount">
+                        <dl class="tradeAmountRowTotal">
+                            <dt class="tradeAmountTitleCell">
+                                <span class="tradeAmountTitle">보유 KRW</span>
+                            </dt>
+                            <dd class="tradeAmountCountCell">
+                                <span class="tradeAmountCount">
+                                    <% if(wallet.length < 1) { %>
+                                        0
+                                    <% } else { %>
+                                        <%= balance %>
+                                    <% } %>
+                                    <i class="tradeAmountUnit">KRW</i>
+                                </span>
+                            </dd>
+                        </dl>
+                        <dl class="tradeAmountRowTotal">
+                            <dt class="tradeAmountTitleCell">
+                                <span class="tradeAmountTitle">총 보유자산</span>
+                            </dt>
+                            <dd class="tradeAmountCountCell">
+                                <span class="tradeAmountCount">
+                                    <% if(wallet.length < 1) { %>
+                                        0
+                                    <% } else { %>
+                                        <span class="totalApiPrice"></span>
+                                    <% } %>
+                                    <i class="tradeAmountUnit">KRW</i>
+                                </span>
+                            </dd>
+                        </dl>
+                        <dl class="tradeAmountRowTotal">
+                            <dt class="tradeAmountTitleCell">
+                                <span class="tradeAmountTitle">총 매수금액</span>
+                            </dt>
+                            <dd class="tradeAmountCountCell">
+                                <span class="tradeAmountCount">
+                                    <% if(wallet.length < 1) { %>
+                                        0
+                                    <% } else { %>
+                                        <%= totalMoney.toFixed(0) %>
+                                    <% } %>
+                                    <i class="tradeAmountUnit">KRW</i>
+                                </span>
+                            </dd>
+                        </dl>
+                        <!-- <dl class="tradeAmountRowTotal">
+                            <dt class="tradeAmountTitleCell">
+                                <span class="tradeAmountTitle">총 평가손익</span>
+                            </dt>
+                            <dd class="tradeAmountCountCell">
+                                <span class="tradeAmountCount">
+                                    -
+                                    <i class="tradeAmountUnit">KRW</i>
+                                </span>
+                            </dd>
+                        </dl> -->
+                        <!-- <dl class="tradeAmountRowTotal">
+                            <dt class="tradeAmountTitleCell">
+                                <span class="tradeAmountTitle">총 평가금액</span>
+                            </dt>
+                            <dd class="tradeAmountCountCell">
+                                <span class="tradeAmountCount">
+                                    -
+                                    <i class="tradeAmountUnit">KRW</i>
+                                </span>
+                            </dd>
+                        </dl> -->
+                        <dl class="tradeAmountRowTotal">
+                            <dt class="tradeAmountTitleCell">
+                                <span class="tradeAmountTitle">총 평가수익률</span>
+                            </dt>
+                            <dd class="tradeAmountCountCell">
+                                <span class="tradeAmountCount">
+                                    <% if(wallet.length < 1) { %>
+                                    -
+                                    <% } else { %>
+                                    <span class="totalPercent"></span>
+                                    <% } %>
+                                    <i class="tradeAmountUnit">%</i>
+                                </span>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="mytrade_right2">
+                <!-- <table id="table_ticker" class="conintable"> -->
+                <table border=1 id="table_ticker" class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>영문명</th>
+                            <th>현재가</th>
+                            <th>전일대비</th>
+                            <th>거래대금</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/javascripts/mytrade.js"></script>
+</html>
