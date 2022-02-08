@@ -133,17 +133,17 @@ table, td, th{
 }
 .tab1{
   display: inline-block;
-  display: inline-block;
     margin: 20px 0 50px;
   padding: 30px;
   background-color: #fff;
 }
 .tab2{
-  position: sticky;
-  top: 72px;
+  display: inline-block;
+  position: fixed;
   float: right;
   padding: 30px;
   margin-top: 20px;
+  margin-left: 10px;
   background-color: #fff;
 }
 .trade_body{
